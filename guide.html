@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmic Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000;
+  overflow: hidden;
+}
+
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #00ccff;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.card-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+  width: 200px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background: rgba(0, 204, 255, 0.1);
+}
+
+.card h2 {
+  margin-bottom: 0.5rem;
+  color: #00ccff;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="content">
+    <header>
+      <h1>Cosmic Explorer</h1>
+      <p>Journey through the stars and beyond</p>
+    </header>
+
+    <section class="card-container">
+      <div class="card" id="planet">
+        <h2>Planet</h2>
+        <p>Click to learn about mysterious worlds.</p>
+      </div>
+      <div class="card" id="star">
+        <h2>Star</h2>
+        <p>Tap into the power of cosmic furnaces.</p>
+      </div>
+      <div class="card" id="galaxy">
+        <h2>Galaxy</h2>
+        <p>Explore vast systems of stars and dust.</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
