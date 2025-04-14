@@ -1,0 +1,510 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('images/Milky-Way-Desktop-Wallpaper.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  
+
+  .content {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+
+  header h1 {
+    font-size: 3rem;
+    color: #00ccff;
+    text-shadow: 0 0 10px #00ccff, 0 0 20px rgba(0, 204, 255, 0.6);
+  }
+  
+
+  header p {
+    font-size: 1.2rem;
+    color: #bbddee;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  }
+
+
+  .header-title {
+    display: inline-block;
+    background-color: rgba(10, 20, 40, 0.75);
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    color: #7ecbff;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 150, 255, 0.6);
+    backdrop-filter: blur(4px);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  
+
+  .header-subtitle {
+    display: inline-block;
+    background-color: rgba(10, 20, 40, 0.6);
+    padding: 0.6rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: #aee4ff;
+    text-shadow: 0 0 6px rgba(0, 150, 255, 0.3);
+    backdrop-filter: blur(3px);
+  }
+
+
+  .card-container {
+    margin: 4rem auto 2rem;
+    max-width: 960px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+  }
+  
+
+  .card {
+    text-align: center;
+    background: rgba(10, 10, 30, 0.7);
+    border: 1px solid rgba(0, 204, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 16px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    color: #e0f7ff;
+    text-decoration: none;
+    backdrop-filter: blur(3px);
+  }
+  
+
+  .card:hover {
+    transform: scale(1.05);
+    background: rgba(0, 40, 60, 0.9);
+    box-shadow: 0 10px 50px rgba(0, 204, 255, 0.3);
+  }
+  
+
+  .card h2 {
+    margin-bottom: 0.5rem;
+    color: #00ccff;
+    text-shadow: 0 0 6px rgba(0, 204, 255, 0.5);
+  }
+  
+
+  .card p {
+    font-size: 0.9rem;
+    color: #cceeff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  }
+
+  
+  .auth-form {
+    display: none;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+
+  .auth-form.active {
+    display: block;
+  }
+
+
+  .auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+
+  .auth-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: rgba(42, 42, 66, 0.9);
+    color: #00ccff;
+    font-size: 1rem;
+    box-shadow: inset 0 0 8px rgba(0, 204, 255, 0.3);
+  }
+  
+
+  .auth-form input::placeholder {
+    color: #88e0ff;
+    opacity: 0.8;
+  }
+  
+
+  .auth-form button {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: #00ccff;
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+    margin-top: 0.5rem;
+  }
+  
+
+  .auth-form button:hover {
+    background-color: #00aacc;
+    transform: scale(1.03);
+  }
+  
+
+  .auth-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #00ccff;
+    text-shadow: 0 0 6px rgba(0, 204, 255, 0.5);
+  }
+
+
+  .auth-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    position: relative;
+  }
+  
+
+  .switch-link {
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    color: #cceeff;
+  }
+  
+
+  .switch-link a {
+    color: #00ccff;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 0.25rem;
+  }
+  
+
+  .switch-link a:hover {
+    text-decoration: underline;
+  }
+
+
+  .apod-section {
+    margin: 4rem auto;
+    max-width: 1000px;
+    padding: 2rem;
+    text-align: center;
+    color: #cceeff;
+    background: rgba(0, 0, 20, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 204, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  
+
+  .apod-section h2 {
+    margin-bottom: 1rem;
+    color: #00ccff;
+    text-shadow: 0 0 8px #00ccff;
+  }
+  
+
+  .apod-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+
+  .apod-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+  }
+  
+
+  .apod-text h3 {
+    color: #88e0ff;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+
+  .apod-text p {
+    font-size: 1rem;
+    color: #e0f7ff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  }
+
+
+  #apod-date {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 30, 0.8);
+    color: #88e0ff;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(0, 204, 255, 0.2);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 -2px 10px rgba(0, 204, 255, 0.05);
+    margin-top: 4rem;
+  }
+
+
+  .planets-section {
+    margin: 4rem auto;
+    max-width: 1000px;
+    padding: 2rem;
+    text-align: center;
+    color: #cceeff;
+    background: rgba(0, 0, 20, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 204, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  
+
+  .planets-section h2 {
+    color: #00ccff;
+    text-shadow: 0 0 8px #00ccff;
+  }
+
+
+  .planet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+
+  .planet-card {
+    background: rgba(10, 10, 30, 0.7);
+    border: 1px solid rgba(0, 204, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    border-radius: 12px;
+    color: #e0f7ff;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+  
+
+  .planet-card:hover {
+    transform: scale(1.03);
+    background: rgba(0, 40, 60, 0.9);
+  }
+
+
+  .planet-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+
+  #asteroids p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #e0f7ff;
+  }
+
+
+  .asteroid-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-items: center;
+  }
+  
+
+  .asteroid-list .card {
+    width: 100%;
+    max-width: 300px;
+    background: rgba(10, 10, 30, 0.7);
+    border: 1px solid rgba(0, 204, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: #e0f7ff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+
+  .asteroid-list .card:hover {
+    transform: scale(1.05);
+    background: rgba(0, 40, 60, 0.9);
+    box-shadow: 0 10px 50px rgba(0, 204, 255, 0.3);
+  }
+
+
+  #fetch-asteroids {
+    width: 100%;
+    max-width: 250px;
+    padding: 0.9rem;
+    background-color: #00ccff;
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+    text-shadow: none;
+    margin: 2rem auto 2rem;
+    display: block;
+  }
+  
+
+  #fetch-asteroids:hover {
+    background-color: #00aacc;
+    transform: scale(1.03);
+  }
+  
+
+  #fetch-asteroids:focus {
+    outline: none;
+  }
+  
+
+  .live-timer {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1.5rem 0 1rem;
+    color: #00ccff;
+    text-shadow: 0 0 10px #00ccff, 0 0 20px rgba(0, 204, 255, 0.6);
+    background: rgba(0, 0, 20, 0.5);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.2);
+    backdrop-filter: blur(3px);
+  }
+
+
+  #sunandmoon {
+    background-color: rgba(10, 20, 40, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+    color: #e0f7ff;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  }
+  
+
+  #sunandmoon h2 {
+    color: #7ecbff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(0, 150, 255, 0.5);
+  }
+  
+
+  #sunandmoon input,
+  #sunandmoon button {
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: none;
+    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #112244;
+    color: #e0f7ff;
+    margin-right: 0.5rem;
+  }
+  
+
+  #sunandmoon input::placeholder {
+    color: #a8cde3;
+  }
+  
+
+  #sunandmoon button {
+    background: linear-gradient(145deg, #1478c9, #0f4c81);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+
+  #sunandmoon button:hover {
+    background: linear-gradient(145deg, #1d9fff, #1466b3);
+    transform: scale(1.05);
+  }
+  
+
+  .astro-results {
+    margin: 1.5rem auto;
+    padding: 1.5rem;
+    max-width: 800px;    
+    width: 90%;         
+    background-color: rgba(20, 40, 70, 0.8);
+    border-radius: 16px;
+    color: #dceeff;
+    box-shadow: inset 0 0 10px rgba(0, 150, 255, 0.1);
+  }
+  
+
+  .astro-results h3,
+  .astro-results h4 {
+    color: #91d6ff;
+    margin-top: 1rem;
+    text-shadow: 0 0 5px rgba(100, 200, 255, 0.3);
+  }
+  
+  
+  .astro-results p {
+    margin: 0.4rem 0;
+    line-height: 1.4;
+    font-size: 1rem;
+  }
