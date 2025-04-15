@@ -606,3 +606,20 @@ transition: all 0.3s ease;
 color: #00ccff;
 transform: rotate(90deg);
 }
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ffd700;
+  margin-top: 1rem;
+  transition: transform 0.2s ease, text-shadow 0.3s ease;
+  display: inline-block;
+  filter: drop-shadow(0 0 4px #00ccff);
+}
+
+.fav-btn:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 8px #00ccff, 0 0 12px #00ccff;
+}

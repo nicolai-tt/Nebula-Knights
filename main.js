@@ -6,9 +6,8 @@ const apodURL = `https://api.nasa.gov/planetary/apod?api_key=${apodKey}`;
 async function fetchAPOD() {
 
   try {
-
+    
     let response = await fetch(apodURL);
-
     let data = await response.json();
 
     let img = document.getElementById("apod-img");
@@ -27,8 +26,8 @@ async function fetchAPOD() {
     title.textContent = data.title;
     desc.textContent = data.explanation;
     date.textContent = `Date: ${data.date}`;
-  } 
-  
+  }
+
   catch (error) {
     console.error("Error fetching APOD:", error);
   }
@@ -36,13 +35,16 @@ async function fetchAPOD() {
 }
 
 fetchAPOD();
+
 // Log-In and Sign-Up Form
+
 let loginForm = document.getElementById("login-form");
 let signupForm = document.getElementById("signup-form");
 let showSignup = document.getElementById("show-signup");
 let showLogin = document.getElementById("show-login");
 
 // Keep your existing form toggle code
+
 showSignup.addEventListener("click", function(e) {
   e.preventDefault();
   loginForm.classList.remove("active");
@@ -56,7 +58,9 @@ showLogin.addEventListener("click", function(e) {
 });
 
 // Login function
+
 loginForm.addEventListener("submit", async (e) => {
+
   e.preventDefault();
   const email = loginForm.querySelector('input[type="email"]').value;
   const password = loginForm.querySelector('input[type="password"]').value;
@@ -65,12 +69,15 @@ loginForm.addEventListener("submit", async (e) => {
     await firebaseAuth.signInWithEmailAndPassword(auth, email, password);
     alert("Welcome back to Cosmic Explorer!");
     // You could redirect or update UI here
-  } catch (error) {
+  } 
+  
+  catch (error) {
     alert("Login error: " + error.message);
   }
 });
 
 // Signup function
+
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = signupForm.querySelector('input[type="email"]').value;
@@ -79,12 +86,15 @@ signupForm.addEventListener("submit", async (e) => {
   try {
     await firebaseAuth.createUserWithEmailAndPassword(auth, email, password);
     alert("Account created! Welcome to the cosmos.");
-  } catch (error) {
+  } 
+  
+  catch (error) {
     alert("Signup error: " + error.message);
   }
 });
 
 // Password Reset Functionality
+
 const forgotPassword = document.getElementById("forgot-password");
 const resetModal = document.getElementById("reset-modal");
 const closeReset = document.querySelector(".close-reset");
@@ -113,12 +123,15 @@ submitReset.addEventListener("click", async () => {
     await firebaseAuth.sendPasswordResetEmail(auth, email);
     alert("Password reset email sent! Check your inbox.");
     resetModal.style.display = "none";
-  } catch (error) {
+  } 
+  
+  catch (error) {
     alert("Error: " + error.message);
   }
 });
 
 // Close modal when clicking outside
+
 window.addEventListener("click", (e) => {
   if (e.target === resetModal) {
     resetModal.style.display = "none";
@@ -179,6 +192,7 @@ function createPlanetCards (planets) {
       <p><strong>Gravity:</strong> ${planet.gravity} m/s²</p>
       <p><strong>Mean Radius:</strong> ${planet.meanRadius} km</p>
       <p><strong>Orbit Period:</strong> ${planet.sideralOrbit} days</p>
+      <button class="fav-btn" title="Mark as Favorite">⭐</button>
     `;
 
     planetList.appendChild(div);
@@ -232,6 +246,7 @@ function createAsteroidCard(asteroid) {
     <p><strong>Velocity (km/h):</strong> ${Number(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString()}</p>
     <p><strong>Miss Distance (km):</strong> ${Number(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString()}</p>
     <p><strong>Orbiting: </strong> ${asteroid.close_approach_data[0].orbiting_body}</p>
+    <button class="fav-btn" title="Mark as Favorite">⭐</button>
   `;
 
   return card;
@@ -386,6 +401,7 @@ function handleError() {
 }
 
 async function handleSunMoonButtonClick() {
+
   const location = document.getElementById("location-input").value.trim();
   
   if (!location) {
