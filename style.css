@@ -35,8 +35,14 @@ body, html {
   padding: 4rem 2rem;
 }
 
+header{
+  text-align: center;
+}
 
 header h1 {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
   font-size: 3rem;
   color: #00ccff;
   text-shadow: 0 0 10px #00ccff, 0 0 20px rgba(0, 204, 255, 0.6);
@@ -50,8 +56,7 @@ header p {
 }
 
 
-.header-title {
-  display: inline-block;
+#header-title {
   background-color: rgba(10, 20, 40, 0.75);
   padding: 1rem 2rem;
   border-radius: 16px;
@@ -255,7 +260,8 @@ header p {
 
 
 .apod-content img {
-  max-width: 100%;
+  max-height: 590px;
+  width: auto;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
 }
@@ -434,17 +440,24 @@ header p {
 }
 
 
-#sunandmoon {
+#soluna {
   background-color: rgba(10, 20, 40, 0.7);
   border-radius: 20px;
   padding: 2rem;
   margin-top: 2rem;
   color: #e0f7ff;
   box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem auto;
+  max-width: 700px;
+  width: 90%; 
 }
 
 
-#sunandmoon h2 {
+#soluna h2 {
   color: #7ecbff;
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -452,8 +465,8 @@ header p {
 }
 
 
-#sunandmoon input,
-#sunandmoon button {
+#soluna input,
+#soluna button {
   padding: 0.6rem 1rem;
   border-radius: 10px;
   border: none;
@@ -464,26 +477,34 @@ header p {
   margin-right: 0.5rem;
 }
 
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
 
-#sunandmoon input::placeholder {
+#soluna input::placeholder {
   color: #a8cde3;
 }
 
 
-#sunandmoon button {
+#soluna button {
   background: linear-gradient(145deg, #1478c9, #0f4c81);
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 
-#sunandmoon button:hover {
+#soluna button:hover {
   background: linear-gradient(145deg, #1d9fff, #1466b3);
   transform: scale(1.05);
 }
 
 
 .astro-results {
+  display: none;
   margin: 1.5rem auto;
   padding: 1.5rem;
   max-width: 800px;    
@@ -612,7 +633,7 @@ transform: rotate(90deg);
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #ffd700;
+  color: #fff;
   margin-top: 1rem;
   transition: transform 0.2s ease, text-shadow 0.3s ease;
   display: inline-block;
@@ -622,4 +643,146 @@ transform: rotate(90deg);
 .fav-btn:hover {
   transform: scale(1.2);
   text-shadow: 0 0 8px #00ccff, 0 0 12px #00ccff;
+  color: #ffd700;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  background-color: rgba(10, 20, 40, 0.8);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 204, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 204, 255, 0.1);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-radius: 0 0 1rem 1rem;
+}
+
+nav a {
+  color: #aee4ff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  text-shadow: 0 0 6px rgba(0, 204, 255, 0.3);
+}
+
+nav a:hover {
+  background: rgba(0, 40, 60, 0.8);
+  color: #00ccff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
+
+nav a.active {
+  font-weight: bold;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
+
+#favourites {
+  display: none;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+#profile-pic:hover {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  padding: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 999;
+  border-radius: 10px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  border: 1px solid #eee;
+  background: linear-gradient(to bottom right, #fff, #f9f9f9);
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+#logout-button {
+  margin-top: 8px;
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#logout-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+#home-profile {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  z-index: 1000;
+}
+
+#home-profile .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#home-profile:hover .dropdown-content {
+  display: block;
+}
+
+#home-profile {
+  display: none;
 }

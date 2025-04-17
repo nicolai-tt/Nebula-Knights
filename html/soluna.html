@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmic Explorer</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+
+    <header>
+
+        <h1 id="header-title">Cosmic Explorer</h1>
+  
+        <nav>
+          <a href="../index.html">Home</a>
+          <a href="planets.html">Planets</a>
+          <a href="asteroids.html">Asteroids</a>
+          <a href="soluna.html">SoLuna</a>
+          <a id="favourites" href="favourites.html">Favourites</a>
+          <a id="auth-link" href="auth.html">Login/Signup</a>
+          <div class="profile-dropdown">
+            <img src="../images/profile.jpg" alt="Profile" id="profile-pic" />
+            <div class="dropdown-content">
+              <p id="user-email">user@example.com</p>
+              <button id="logout-button">Log Out</button>
+            </div>
+          </div>
+        </nav>
+    </header>
+
+
+    <section id="soluna" class="section-content">
+      <h2>SoLuna</h2>
+      <p>Enter a location to explore sun and moon data.</p>
+    
+      <div class="input-group">
+        <input type="text" id="location-input" placeholder="Enter city or country" />
+        <button id="get-sunmoon">Get Data</button>
+      </div>
+    
+      <div id="sunmoon-results" class="astro-results"></div>
+    </section>
+
+    <section id="favourites" class="section-content">
+
+      
+    </section>
+
+
+
+    <div id="live-timer" class="live-timer"></div>
+
+  <footer class="footer">
+    <p>&copy; 2025 Cosmic Explorer. All rights reserved.</p>
+  </footer>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCe4mRoC0ugu0QQRv7qMw78kN_QEeXQwGQ",
+  authDomain: "nebula-website-38265.firebaseapp.com",
+  projectId: "nebula-website-38265",
+  storageBucket: "nebula-website-38265.firebasestorage.app",
+  messagingSenderId: "281085588972",
+  appId: "1:281085588972:web:6fc787e51a1ace5c4e7cc9",
+  measurementId: "G-M0JT5WC23E"
+};
+
+// Initialize Firebase
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.auth = auth;
+window.firebaseAuth = {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
+};
+
+onAuthStateChanged(auth, function(user) {
+  const authLink = document.getElementById("auth-link");
+  const favourites = document.getElementById("favourites");
+  const emailDisplay = document.getElementById("user-email");
+  const profileDropdown = document.querySelector(".profile-dropdown");
+
+  if (authLink && favourites) {
+    if (user) {
+      authLink.style.display = "none";
+      favourites.style.display = "inline-block";
+      if (emailDisplay) {
+        emailDisplay.textContent = user.email;
+      }
+      if (profileDropdown) {
+        profileDropdown.style.display = "inline-block";
+      }
+    } else {
+      authLink.style.display = "";
+      favourites.style.display = "none";
+      if (emailDisplay) {
+        emailDisplay.textContent = "";
+      }
+      if (profileDropdown) {
+        profileDropdown.style.display = "none";
+      }
+    }
+  }
+});
+
+import { signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+// Function to sign out the user
+function handleSignOut() {
+  signOut(auth).then(() => {
+    // After signing out, you may want to hide certain elements
+    const authLink = document.getElementById("auth-link");
+    const favourites = document.getElementById("favourites");
+    const emailDisplay = document.getElementById("user-email");
+
+    if (authLink && favourites) {
+      authLink.style.display = "";
+      favourites.style.display = "none";
+      if (emailDisplay) {
+        emailDisplay.textContent = "";
+      }
+    }
+  }).catch((error) => {
+    console.error("Sign out error: ", error);
+  });
+}
+
+// Example of attaching sign out handler to an element (e.g., "Logout" button)
+const logoutButton = document.getElementById("logout-button");
+if (logoutButton) {
+  logoutButton.addEventListener("click", handleSignOut);
+}
+  </script>
+<script src="../js/main.js"></script>
+<script src="../js/soluna.js"></script>
+</body>
+</html>
