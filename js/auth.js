@@ -5,7 +5,7 @@ let signupForm = document.getElementById("signup-form");
 let showSignup = document.getElementById("show-signup");
 let showLogin = document.getElementById("show-login");
 
-const previousPage = document.referrer;
+// Keep your existing form toggle code
 
 showSignup.addEventListener("click", function(e) {
   e.preventDefault();
@@ -19,63 +19,81 @@ showLogin.addEventListener("click", function(e) {
   loginForm.classList.add("active");
 });
 
-// Login function
-
-// Login function
-
-loginForm.addEventListener("submit", async (e) => {
+// Signup Function (Fixed for Firebase v9)
+document.getElementById('signup-form').addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = loginForm.querySelector('input[type="text"]').value; // Get username input
-  const password = loginForm.querySelector('input[type="password"]').value;
-  const previousPage = document.referrer; // Get the previous page URL
+  const username = e.target.querySelector('input[type="text"]').value;
+  const email = e.target.querySelector('input[type="email"]').value;
+  const password = e.target.querySelector('input[type="password"]').value;
 
-  // Retrieve user data from localStorage
-  const userData = JSON.parse(localStorage.getItem(username));
-
-  if (userData && userData.password === password) {
-    try {
-      // Use the stored email for Firebase Authentication
-      await firebaseAuth.signInWithEmailAndPassword(auth, userData.email, password);
-      alert("Welcome back to Cosmic Explorer!");
-      if (previousPage && previousPage !== window.location.href) {
-        window.location.href = previousPage;
-      } else {
-        window.location.href = "index.html";
+  try {
+    // Create user with auth
+    const userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+      auth, 
+      email, 
+      password
+    );
+    
+    // Save additional data to Firestore
+    await firestore.setDoc(
+      firestore.doc(db, "users", userCredential.user.uid), 
+      {
+        username: username,
+        email: email
       }
-    } catch (error) {
-      alert("Login error: " + error.message);
-    }
-  } else {
-    alert("Login error: Username or password is incorrect.");
+    );
+
+    alert("Account created! Welcome to the cosmos.");
+    e.target.reset();
+  } catch (error) {
+    alert("Signup error: " + error.message);
   }
 });
 
-// Signup function
-
-signupForm.addEventListener("submit", async (e) => {
+// Login Function (Fixed for Firebase v9)
+document.getElementById('login-form').addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = signupForm.querySelector('input[type="text"]').value; // Get username input
-  const email = signupForm.querySelector('input[type="email"]').value;
-  const password = signupForm.querySelector('input[type="password"]').value;
+  const username = document.getElementById("login-username").value;
+  const password = document.getElementById("login-password").value;
 
   try {
-    // Create the user with email and password using Firebase Authentication
-    const userCredential = await firebaseAuth.createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    // 1️⃣ Find user in Firestore by username
+    const usersRef = firestore.collection(db, "users");
+    const q = firestore.query(usersRef, firestore.where("username", "==", username));
+    const querySnapshot = await firestore.getDocs(q);
 
-    // Store the username and other info in localStorage
-    const userData = {
-      username: username,
-      email: email,
-      password: password  // This is not ideal, consider hashing it if possible
-    };
-    localStorage.setItem(username, JSON.stringify(userData)); // Store by username
+    if (querySnapshot.empty) {
+      throw new Error("❌ Username not found");
+    }
 
-    alert("Account created! Welcome to the cosmos.");
-  } catch (error) {
-    alert("Signup error: " + error.message);
+    // 2️⃣ Get the user's email from Firestore
+    const userData = querySnapshot.docs[0].data();
+    const userEmail = userData.email;
+
+    if (!userEmail) {
+      throw new Error("❌ No email linked to this username");
+    }
+
+    // 3️⃣ Sign in with Firebase Auth (using email + password)
+    await firebaseAuth.signInWithEmailAndPassword(auth, userEmail, password);
+    
+    alert(`✅ Welcome back, ${username}!`);
+    e.target.reset();
+  } 
+  catch (error) {
+    console.error("Login error:", error);
+    
+    // Better error messages
+    let errorMsg = "Login failed. Please try again.";
+    if (error.message.includes("invalid-login-credentials")) {
+      errorMsg = "❌ Incorrect password";
+    } else if (error.message.includes("Username not found")) {
+      errorMsg = "❌ Username does not exist";
+    }
+    
+    alert(errorMsg);
   }
 });
 
@@ -110,7 +128,6 @@ submitReset.addEventListener("click", async () => {
     alert("Password reset email sent! Check your inbox.");
     resetModal.style.display = "none";
   } 
-  
   catch (error) {
     alert("Error: " + error.message);
   }
@@ -140,4 +157,3 @@ if (resetEmailInput) {
     }
   });
 }
-
