@@ -659,6 +659,8 @@ nav {
   top: 0;
   z-index: 999;
   border-radius: 0 0 1rem 1rem;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
 nav a {
