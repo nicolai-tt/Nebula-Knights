@@ -5,6 +5,8 @@ let signupForm = document.getElementById("signup-form");
 let showSignup = document.getElementById("show-signup");
 let showLogin = document.getElementById("show-login");
 
+let previousPage = document.referrer;
+
 // Keep your existing form toggle code
 
 showSignup.addEventListener("click", function(e) {
@@ -27,6 +29,7 @@ document.getElementById('signup-form').addEventListener("submit", async (e) => {
   const email = e.target.querySelector('input[type="email"]').value;
   const password = e.target.querySelector('input[type="password"]').value;
 
+
   try {
     // Create user with auth
     const userCredential = await firebaseAuth.createUserWithEmailAndPassword(
@@ -45,6 +48,7 @@ document.getElementById('signup-form').addEventListener("submit", async (e) => {
     );
 
     alert("Account created! Welcome to the cosmos.");
+    window.location.href = "../html/auth.html";
     e.target.reset();
   } catch (error) {
     alert("Signup error: " + error.message);
@@ -78,11 +82,16 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
 
     // 3️⃣ Sign in with Firebase Auth (using email + password)
     await firebaseAuth.signInWithEmailAndPassword(auth, userEmail, password);
-    
+
     alert(`✅ Welcome back, ${username}!`);
+    if (previousPage && previousPage !== window.location.href) {
+      window.location.href = previousPage;
+    } else {
+      window.location.href = "../index.html";
+    }
+    
     e.target.reset();
-  } 
-  catch (error) {
+    } catch (error) {
     console.error("Login error:", error);
     
     // Better error messages
