@@ -792,8 +792,8 @@ nav a.active {
   justify-content: center;
   align-items: center;
   padding: 15px 0;
-  z-index: 1;
   overflow: hidden;
+  z-index: 1;
 }
 
 /* Shooting star trail */
@@ -804,10 +804,10 @@ nav a.active {
   left: -300px;
   height: 2px;
   width: 200px;
-  background: linear-gradient(to left, white, transparent);
-  animation: shootAcross 3s linear infinite;
-  z-index: 0;
+  background: linear-gradient(to left, orange, transparent);
+  animation: shootAcross 3s linear infinite, trailColors 15s linear infinite;
   transform: translateY(-50%);
+  z-index: 0;
 }
 
 /* Shooting star head */
@@ -819,14 +819,14 @@ nav a.active {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: white;
-  box-shadow: 0 0 10px #fff, 0 0 20px #0ff;
-  animation: shootAcross 3s linear infinite;
+  background: orange;
+  box-shadow: 0 0 10px orange, 0 0 20px orange;
+  animation: shootAcross 3s linear infinite, headColors 15s linear infinite;
   transform: translate(190px, -50%);
   z-index: 1;
 }
 
-/* Animation keyframes */
+/* Animation for movement */
 @keyframes shootAcross {
   0% {
     left: -300px;
@@ -841,5 +841,43 @@ nav a.active {
   100% {
     left: 100%;
     opacity: 0;
+  }
+}
+
+/* Trail color cycle */
+@keyframes trailColors {
+  0%   { background: linear-gradient(to left, orange, transparent); }
+  20%  { background: linear-gradient(to left, yellow, transparent); }
+  40%  { background: linear-gradient(to left, mediumspringgreen, transparent); }
+  60%  { background: linear-gradient(to left, violet, transparent); }
+  80%  { background: linear-gradient(to left, red, transparent); }
+  100% { background: linear-gradient(to left, orange, transparent); }
+}
+
+/* Head color + glow cycle */
+@keyframes headColors {
+  0% {
+    background: orange;
+    box-shadow: 0 0 10px orange, 0 0 20px orange;
+  }
+  20% {
+    background: yellow;
+    box-shadow: 0 0 10px yellow, 0 0 20px yellow;
+  }
+  40% {
+    background: mediumspringgreen;
+    box-shadow: 0 0 10px mediumspringgreen, 0 0 20px mediumspringgreen;
+  }
+  60% {
+    background: violet;
+    box-shadow: 0 0 10px violet, 0 0 20px violet;
+  }
+  80% {
+    background: red;
+    box-shadow: 0 0 10px red, 0 0 20px red;
+  }
+  100% {
+    background: orange;
+    box-shadow: 0 0 10px orange, 0 0 20px orange;
   }
 }
