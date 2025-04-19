@@ -45,11 +45,12 @@ function createAsteroidCard(asteroid) {
   card.innerHTML = `
     <h3>${asteroid.name}</h3>
     <p><strong>Hazardous:</strong> ${hazardous}</p>
+    <p><strong>Absolute Magnitude (H):</strong> ${asteroid.absolute_magnitude_h}</p>
     <p><strong>Diameter (m):</strong> ${asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} - ${asteroid.estimated_diameter.meters.estimated_diameter_max.toFixed(2)}</p>
     <p><strong>Velocity (km/h):</strong> ${Number(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString()}</p>
     <p><strong>Miss Distance (km):</strong> ${Number(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString()}</p>
     <p><strong>Orbiting: </strong> ${asteroid.close_approach_data[0].orbiting_body}</p>
-    <button class="fav-btn" title="Mark as Favorite">⭐</button>
+    <button class="fav" title="Mark as Favorite">⭐</button>
   `;
 
   return card;

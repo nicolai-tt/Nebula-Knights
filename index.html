@@ -9,16 +9,16 @@
 
 <body>
 
-  <div class="content" id="home">
+  <div class="page" id="home">
 
     <header>
 
         <h1 id="header-title">Cosmic Explorer</h1>
-  
-    </header>
-
+  </header>
+     <div class="shooting-star-nav"> 
     <p class="header-subtitle">Journey through the stars and beyond</p>
-
+ </div>
+    
     <section class="card-container">
       <a href="#apod" class="card">
         <h2>Home</h2>
@@ -45,7 +45,7 @@
         <p>Join now to start interacting with the community!</p>
       </a>
       <div class="profile-dropdown">
-        <img src="../images/profile.jpg" alt="Profile" id="profile-pic" />
+        <img src="images/profile.jpg" alt="Profile" id="profile-pic" />
         <div class="dropdown-content">
           <p id="user-name">User Name</p>
           <p id="user-email">user@example.com</p>
@@ -62,7 +62,7 @@
           <h3 id="apod-title"></h3>
           <p id="apod-date"></p>
           <p id="apod-desc"></p>
-          <button class="fav-btn" title="Mark as Favorite">⭐</button>
+          <button class="fav" title="Add to Favourites">⭐</button>
         </div>
       </div>
     </section>
@@ -73,7 +73,7 @@
     <p>&copy; 2025 Cosmic Explorer. All rights reserved.</p>
   </footer>
 
-  <script type="module" src="../js/firebase.js"></script>
+  <script type="module" src="js/firebase.js"></script>
 <script src="js/main.js"></script>
 <script src="js/apod.js"></script>
 </body>
