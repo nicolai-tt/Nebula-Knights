@@ -881,3 +881,28 @@ nav a.active {
     box-shadow: 0 0 10px orange, 0 0 20px orange;
   }
 }
+
+details{
+  width: 20vw;
+  color: #e0f7ff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+summary {
+  display: flex; /* makes the arrow and text sit inline */
+  align-items: center; /* vertically aligns them */
+  gap: 8px; /* space between arrow and text */
+  cursor: pointer;
+  padding: 10px;
+  color: #e0f7ff;
+  list-style: none;
+}
+
+details p{
+  padding-top: 19px;
+}
