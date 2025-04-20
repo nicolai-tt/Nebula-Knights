@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmic Explorer</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/png" href="https://cdn.drop.media/nebulaknights/c8db900b-1232-4dba-9277-4d0740a2a39f.png">
+</head>
+
+<body>
+
+<div class="page">
+  <header>
+
+    <h1 id="header-title">Cosmic Explorer</h1>
+
+    <nav class="shooting-star-nav">
+            <a href="../index.html">Home</a>
+            <a href="planets.html">Planets</a>
+            <a href="asteroids.html">Asteroids</a>
+            <a href="soluna.html">SoLuna</a>
+            <a id="favourites" href="favourites.html">Favourites</a>
+            <a id="auth-link" href="auth.html">Login/Signup</a>
+
+        </nav>
+
+        <div class="profile-dropdown">
+          <img src="https://cdn.drop.media/nebulaknights/0d6bae4d-3eaf-4d26-9b77-1704bb9bc7e2.png" alt="Profile" id="profile-pic" />
+          <div class="dropdown-content">
+            <p id="user-name">User Name</p>
+            <p id="user-email">user@example.com</p>
+            <button id="logout-button">Log Out</button>
+          </div>
+        </div>
+</header>
+
+    <section id="planets" class="planets-section section-content">
+      <h2>Planets of the Solar System</h2>
+      <div id="planet-list" class="planet-grid"></div>
+    </section>
+
+
+    <div id="live-timer" class="live-timer"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <img src="https://cdn.drop.media/nebulaknights/c8db900b-1232-4dba-9277-4d0740a2a39f.png" alt="Logo" />
+    <p>&copy; 2025 Cosmic Explorer. All rights reserved.</p>
+  </div>
+</footer>
+
+<script type="module" src="../js/firebase.js"></script>
+<script type="module" src="../js/favourites.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/planets.js"></script>
+</body>
+</html>
