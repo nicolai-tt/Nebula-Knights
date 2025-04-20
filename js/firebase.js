@@ -17,7 +17,6 @@ const firebaseConfig = {
      const auth = getAuth(app);
      const db = getFirestore(app);
    
-     // Export to window object
      window.auth = auth;
      window.db = db;
      window.firebaseAuth = { createUserWithEmailAndPassword, signInWithEmailAndPassword };
@@ -36,7 +35,6 @@ const firebaseConfig = {
             favourites.style.display = "inline-block";
       
             try {
-              // Get user data from Firestore
               const userDocRef = doc(db, "users", user.uid);
               const userSnap = await getDocs(query(collection(db, "users"), where("email", "==", user.email)));
       
@@ -47,7 +45,6 @@ const firebaseConfig = {
               });
       
               if (userData) {
-                // Display username and email
                 if (nameDisplay) {
                   nameDisplay.textContent = userData.username;
                 }
@@ -81,7 +78,6 @@ const firebaseConfig = {
 
 import { signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
-// Function to sign out the user
 function handleSignOut() {
   signOut(auth).then(() => {
     const authLink = document.getElementById("auth-link");
@@ -106,7 +102,6 @@ function handleSignOut() {
   });
 }
 
-// Example of attaching sign out handler to an element (e.g., "Logout" button)
 const logoutButton = document.getElementById("logout-button");
 if (logoutButton) {
   logoutButton.addEventListener("click", handleSignOut);

@@ -7,8 +7,6 @@ let showLogin = document.getElementById("show-login");
 
 let previousPage = document.referrer;
 
-// Keep your existing form toggle code
-
 showSignup.addEventListener("click", function(e) {
   e.preventDefault();
   loginForm.classList.remove("active");
@@ -21,7 +19,7 @@ showLogin.addEventListener("click", function(e) {
   loginForm.classList.add("active");
 });
 
-// Signup Function (Fixed for Firebase v9)
+// Signup Function
 document.getElementById('signup-form').addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -31,14 +29,12 @@ document.getElementById('signup-form').addEventListener("submit", async (e) => {
 
 
   try {
-    // Create user with auth
     const userCredential = await firebaseAuth.createUserWithEmailAndPassword(
       auth, 
       email, 
       password
     );
     
-    // Save additional data to Firestore
     await firestore.setDoc(
       firestore.doc(db, "users", userCredential.user.uid), 
       {
@@ -55,7 +51,7 @@ document.getElementById('signup-form').addEventListener("submit", async (e) => {
   }
 });
 
-// Login Function (Fixed for Firebase v9)
+// Login Function 
 document.getElementById('login-form').addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -63,7 +59,6 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
   const password = document.getElementById("login-password").value;
 
   try {
-    // 1️⃣ Find user in Firestore by username
     const usersRef = firestore.collection(db, "users");
     const q = firestore.query(usersRef, firestore.where("username", "==", username));
     const querySnapshot = await firestore.getDocs(q);
@@ -72,7 +67,6 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
       throw new Error("❌ Username not found");
     }
 
-    // 2️⃣ Get the user's email from Firestore
     const userData = querySnapshot.docs[0].data();
     const userEmail = userData.email;
 
@@ -80,7 +74,6 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
       throw new Error("❌ No email linked to this username");
     }
 
-    // 3️⃣ Sign in with Firebase Auth (using email + password)
     await firebaseAuth.signInWithEmailAndPassword(auth, userEmail, password);
 
     alert(`✅ Welcome back, ${username}!`);
@@ -94,7 +87,6 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
     } catch (error) {
     console.error("Login error:", error);
     
-    // Better error messages
     let errorMsg = "Login failed. Please try again.";
     if (error.message.includes("invalid-login-credentials")) {
       errorMsg = "❌ Incorrect password";
@@ -106,7 +98,6 @@ document.getElementById('login-form').addEventListener("submit", async (e) => {
   }
 });
 
-// Password Reset Functionality
 
 const forgotPassword = document.getElementById("forgot-password");
 const resetModal = document.getElementById("reset-modal");

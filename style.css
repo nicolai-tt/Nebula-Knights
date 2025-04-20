@@ -288,18 +288,34 @@ header p {
 
 
 .footer {
-  text-align: center;
-  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
   background: rgba(0, 0, 30, 0.8);
   color: #88e0ff;
   font-size: 0.9rem;
   border-top: 1px solid rgba(0, 204, 255, 0.2);
   backdrop-filter: blur(4px);
   box-shadow: 0 -2px 10px rgba(0, 204, 255, 0.05);
-  margin-top: 4rem;
-  flex-shrink: 0;
 }
 
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-content img {
+  height: 24px;
+  width: 24px;
+}
+
+.page{   
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .planets-section {
   margin: 4rem auto;
@@ -518,7 +534,6 @@ header p {
   font-size: 1rem;
 }
 
-/* Forgot Password Styles */
 .forgot-password {
 margin-top: 1rem;
 text-align: center;
@@ -540,7 +555,6 @@ text-shadow: 0 0 8px rgba(0, 204, 255, 0.4);
 transform: translateY(-1px);
 }
 
-/* Password Reset Modal Styles */
 .reset-modal {
 display: none;
 position: fixed;
@@ -637,24 +651,11 @@ transform: rotate(90deg);
 }
 
 .fav:hover {
-  color: #ffd700; /* Change to a gold color on hover */
+  color: #ffd700; 
   text-shadow: 0 0 8px #ffd700, 0 0 3px #ffd700;
-} /* Add a glowing effect on hover */
-
-.fav:active {
-  transform: scale(0.9); /* Scale down when clicked */
-  text-shadow: 0 0 4px #ffd700, 0 0 8px #ffd700;
-}
-.fav.filled {
-  color: #ffd700; /* Change to a filled gold star when marked */
-}
-
-#favourites {
-  display: block;
-  padding: 20px;
-}
+} 
 .fav-card {
-  background: #0b0c2a; /* deep space blue */
+  background: #0b0c2a; 
   border-radius: 12px;
   padding: 16px;
   color: #ffffff;
@@ -667,7 +668,7 @@ transform: rotate(90deg);
 
 .fav-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 204, 255, 0.4); /* glowing effect */
+  box-shadow: 0 6px 16px rgba(0, 204, 255, 0.4); 
 }
 
 .fav-card img {
@@ -679,7 +680,7 @@ transform: rotate(90deg);
 .fav-card h3 {
   margin: 0;
   font-size: 1.2rem;
-  color: #ffd700; /* golden title */
+  color: #ffd700;
 }
 
 .fav-card p {
@@ -695,6 +696,7 @@ transform: rotate(90deg);
   gap: 20px;
   padding: 20px;
 }
+
 nav {
   display: flex;
   justify-content: center;
@@ -825,7 +827,6 @@ nav a.active {
   z-index: 1;
 }
 
-/* Shooting star trail */
 .shooting-star-nav::before {
   content: "";
   position: absolute;
@@ -838,8 +839,6 @@ nav a.active {
   transform: translateY(-50%);
   z-index: 0;
 }
-
-/* Shooting star head */
 .shooting-star-nav::after {
   content: "";
   position: absolute;
@@ -855,7 +854,6 @@ nav a.active {
   z-index: 1;
 }
 
-/* Animation for movement */
 @keyframes shootAcross {
   0% {
     left: -300px;
@@ -873,7 +871,6 @@ nav a.active {
   }
 }
 
-/* Trail color cycle */
 @keyframes trailColors {
   0%   { background: linear-gradient(to left, orange, transparent); }
   20%  { background: linear-gradient(to left, yellow, transparent); }
@@ -883,7 +880,6 @@ nav a.active {
   100% { background: linear-gradient(to left, orange, transparent); }
 }
 
-/* Head color + glow cycle */
 @keyframes headColors {
   0% {
     background: orange;
@@ -923,9 +919,9 @@ details{
 }
 
 summary {
-  display: flex; /* makes the arrow and text sit inline */
-  align-items: center; /* vertically aligns them */
-  gap: 8px; /* space between arrow and text */
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
   cursor: pointer;
   padding: 10px;
   color: #e0f7ff;

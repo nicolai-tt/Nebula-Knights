@@ -48,7 +48,7 @@ function createAsteroidCard(asteroid) {
   const h = asteroid.absolute_magnitude_h;
 const r = Number(asteroid.close_approach_data[0].orbiting_body === "Earth"
   ? asteroid.close_approach_data[0].miss_distance.astronomical
-  : 1); // fallback if it's not orbiting Earth
+  : 1); 
 
 const delta = Number(asteroid.close_approach_data[0].miss_distance.astronomical);
 const apparentMagnitude = (h + 5 * Math.log10(r * delta)).toFixed(2);

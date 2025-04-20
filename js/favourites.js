@@ -19,7 +19,7 @@ onAuthStateChanged(window.auth, (user) => {
   currentUser = user;
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    initFavouritesDisplay(); // in case DOM already loaded
+    initFavouritesDisplay(); 
   } else {
     document.addEventListener("DOMContentLoaded", initFavouritesDisplay);
   }
@@ -42,27 +42,26 @@ document.addEventListener("click", async (e) => {
         const apodImage = document.getElementById("apod-img").src;
         const apodTitle = document.getElementById("apod-title").textContent;
         const apodDesc = document.getElementById("apod-desc").textContent;
-        const apodDate = document.getElementById("apod-date").textContent.replace('Date: ', '');  // remove the "Date: " part
+        const apodDate = document.getElementById("apod-date").textContent.replace('Date: ', '');  
         
-        // Use the date as the ID for the APOD entry, ensuring it's unique for each day
         favData = {
           title: apodTitle,
           image: apodImage,
           description: apodDesc,
-          date: apodDate,  // saving just the date part
+          date: apodDate, 
           type: "apod",
-          id: apodDate  // use date as the unique document ID for APOD
+          id: apodDate 
 };
 } else if (type === "planets") {
     favData = {
-      id: card.dataset.id,  // ID based on the planet's name
-      title: card.querySelector("h3").textContent,  // The name of the planet
-      type: "planet",  // The type of favorite (i.e., planet)
-      image: card.querySelector("img").src,  // The planet's image URL
-      mass: card.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim(),  // Mass
-      gravity: card.querySelector("p:nth-of-type(2)").textContent.split(":")[1].trim(),  // Gravity
-      radius: card.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim(),  // Mean Radius
-      orbit: card.querySelector("p:nth-of-type(4)").textContent.split(":")[1].trim()  // Orbital Period
+      id: card.dataset.id, 
+      title: card.querySelector("h3").textContent,  
+      type: "planet", 
+      image: card.querySelector("img").src,  
+      mass: card.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim(),  
+      gravity: card.querySelector("p:nth-of-type(2)").textContent.split(":")[1].trim(),  
+      radius: card.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim(),  
+      orbit: card.querySelector("p:nth-of-type(4)").textContent.split(":")[1].trim()
     };
   } else if (type === "asteroids") {
       favData = {
@@ -109,7 +108,6 @@ document.addEventListener("click", async (e) => {
         const card = document.createElement("div");
         card.classList.add("fav-card");
   
-        // Build the HTML for the card
         card.innerHTML = `
           <h3>${fav.title}</h3>
           ${fav.image ? `<img src="${fav.image}" alt="${fav.title}" />` : ""}
@@ -125,11 +123,10 @@ document.addEventListener("click", async (e) => {
         const removeButton = card.querySelector(".remove-fav");
         removeButton.addEventListener("click", async () => {
           try {
-            // Remove the favorite from Firestore
+      
             const favRef = doc(db, "users", currentUser.uid, "favourites", fav.id);
-            await deleteDoc(favRef);  // Use deleteDoc to remove the favorite
-  
-            // Remove the card from the UI
+            await deleteDoc(favRef); 
+           
             card.remove();
             alert(`❌ Removed ${fav.title} from favorites.`);
           } catch (error) {
