@@ -108,25 +108,52 @@ document.addEventListener("click", async (e) => {
         const card = document.createElement("div");
         card.classList.add("fav-card");
   
+        // Common fields for all types
         card.innerHTML = `
           <h3>${fav.title}</h3>
           ${fav.image ? `<img src="${fav.image}" alt="${fav.title}" />` : ""}
           <p>Type: ${fav.type}</p>
-          ${fav.description ? `<p>${fav.description}</p>` : ""}
-          ${fav.date ? `<p>Date: ${fav.date}</p>` : ""}
-                  <button class="remove-fav" data-id="${fav.id}">⭐</button>
         `;
   
+        // Type-specific fields
+        if (fav.type === "apod") {
+          card.innerHTML += `
+            ${fav.description ? `<p>${fav.description}</p>` : ""}
+            ${fav.date ? `<p>Date: ${fav.date}</p>` : ""}
+          `;
+        } else if (fav.type === "planet") {
+          card.innerHTML += `
+            <p>Mass: ${fav.mass}</p>
+            <p>Gravity: ${fav.gravity}</p>
+            <p>Radius: ${fav.radius}</p>
+            <p>Orbit: ${fav.orbit}</p>
+          `;
+        } else if (fav.type === "asteroid") {
+          card.innerHTML += `
+            <p>Hazardous: ${fav.hazardous}</p>
+            <p>Diameter: ${fav.diameter}</p>
+            <p>Velocity: ${fav.velocity}</p>
+            <p>Distance: ${fav.distance}</p>
+            <p>Orbiting: ${fav.orbiting}</p>
+            <p>Absolute Magnitude: ${fav.absMag}</p>
+            <p>Apparent Magnitude: ${fav.appMag}</p>
+          `;
+        }
+  
+        // Add remove button
+        card.innerHTML += `
+          <button class="remove-fav" data-id="${fav.id}">⭐</button>
+        `;
   
         favouritesContainer.appendChild(card);
-        
+  
+        // Remove favorite functionality
         const removeButton = card.querySelector(".remove-fav");
         removeButton.addEventListener("click", async () => {
           try {
-      
             const favRef = doc(db, "users", currentUser.uid, "favourites", fav.id);
-            await deleteDoc(favRef); 
-           
+            await deleteDoc(favRef);
+  
             card.remove();
             alert(`❌ Removed ${fav.title} from favorites.`);
           } catch (error) {
@@ -140,4 +167,4 @@ document.addEventListener("click", async (e) => {
       console.error("Error loading favourites:", error);
       favouritesContainer.innerHTML = "<p>Failed to load favourites.</p>";
     }
-}
+  }
