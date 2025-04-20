@@ -630,7 +630,7 @@ color: #00ccff;
 transform: rotate(90deg);
 }
 
-.fav-btn:hover {
+.fav:hover {
   transform: scale(1.2);
   text-shadow: 0 0 8px #00ccff, 0 0 12px #00ccff;
   color: #ffd700;
@@ -639,7 +639,7 @@ transform: rotate(90deg);
 .fav, .remove-fav {
   background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 3rem;
   cursor: pointer;
   font-size: 24px;
   color: gray;
@@ -650,25 +650,51 @@ transform: rotate(90deg);
   filter: drop-shadow(0 0 4px #00ccff);
 }
 
-.fav:hover {
-  color: #ffd700; 
-  text-shadow: 0 0 8px #ffd700, 0 0 3px #ffd700;
-} 
 .fav-card {
-  background: #0b0c2a; 
-  border-radius: 12px;
-  padding: 16px;
+  background: linear-gradient(145deg, #0b0c2a, #0e1033);
+  border-radius: 16px;
+  padding: 20px;  
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  gap: 14px;
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.2), 0 0 20px rgba(0, 204, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  width: 280px; 
+  max-height: 450px; 
+  overflow-y: auto;
+  margin: 20px;
+  border: 1px solid rgba(0, 204, 255, 0.3);
+  backdrop-filter: blur(3px);
+  position: relative;
+  z-index: 1;
+}
+
+.fav-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #00ccff, #7700ff);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude; 
+  z-index: -1;
 }
 
 .fav-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 16px rgba(0, 204, 255, 0.6), 0 0 32px rgba(0, 204, 255, 0.3);
+}
+.fav-card::-webkit-scrollbar {
+  display: none;  
+}
+
+.fav-card:hover, .remove-fav:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 204, 255, 0.4); 
 }
 
 .fav-card img {
@@ -681,6 +707,7 @@ transform: rotate(90deg);
   margin: 0;
   font-size: 1.2rem;
   color: #ffd700;
+  text-align: center;
 }
 
 .fav-card p {
@@ -688,6 +715,7 @@ transform: rotate(90deg);
   font-size: 0.9rem;
   line-height: 1.4;
   color: #d0d0ff;
+  text-align: center; 
 }
 
 .favourites-grid {
