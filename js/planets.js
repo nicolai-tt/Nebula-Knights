@@ -45,6 +45,9 @@ function createPlanetCards (planets) {
     div.className = "planet-card";
     let imgSrc = planetImages[planet.englishName] || "";
 
+    div.setAttribute("data-type", "planets");
+    div.setAttribute("data-id", planet.englishName);
+
     div.innerHTML = `
       <img src="${imgSrc}" alt="${planet.englishName}" class="planet-img"/>
       <h3>${planet.englishName}</h3>
@@ -52,7 +55,7 @@ function createPlanetCards (planets) {
       <p><strong>Gravity:</strong> ${planet.gravity} m/s²</p>
       <p><strong>Mean Radius:</strong> ${planet.meanRadius} km</p>
       <p><strong>Orbit Period:</strong> ${planet.sideralOrbit} days</p>
-      <button class="fav-btn" title="Mark as Favorite">⭐</button>
+      <button class="fav" title="Mark as Favorite">⭐</button>
     `;
 
     planetList.appendChild(div);

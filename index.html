@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cosmic Explorer</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 
 <body>
@@ -56,9 +57,9 @@
 
     <section id="apod" class="apod-section section-content">
       <h2>NASA Astronomy Picture of the Day</h2>
-      <div class="apod-content">
+      <div class="apod-content" data-type="apod">
         <img id="apod-img" alt="Astronomy Picture of the Day" />
-        <div class="apod-text">
+        <div class="apod-text" data-type="apod">
           <h3 id="apod-title"></h3>
           <p id="apod-date"></p>
           <p id="apod-desc"></p>
@@ -70,10 +71,14 @@
   <div id="live-timer" class="live-timer"></div>
 
   <footer class="footer">
-    <p>&copy; 2025 Cosmic Explorer. All rights reserved.</p>
+    <div class="footer-content">
+      <img src="images/logo.png" alt="Cosmic Explorer Logo" />
+      <p>&copy; 2025 Cosmic Explorer. All rights reserved.</p>
+    </div>
   </footer>
 
   <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="../js/favourites.js"></script>
 <script src="js/main.js"></script>
 <script src="js/apod.js"></script>
 </body>

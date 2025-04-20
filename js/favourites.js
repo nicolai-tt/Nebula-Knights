@@ -1,4 +1,5 @@
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
+import { collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
+const db = window.db;
 
 async function getFavourites(userId) {
   const favsRef = collection(db, "users", userId, "favourites");
@@ -10,40 +11,136 @@ async function getFavourites(userId) {
   return favourites;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const favButtons = document.querySelectorAll(".fav-btn");
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+let currentUser = null;
+
+onAuthStateChanged(window.auth, (user) => {
+  currentUser = user;
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initFavouritesDisplay(); // in case DOM already loaded
+  } else {
+    document.addEventListener("DOMContentLoaded", initFavouritesDisplay);
+  }
+});
+
+document.addEventListener("click", async (e) => {
+    const button = e.target.closest(".fav");
+    if (!button) return;
   
-    favButtons.forEach(button => {
-      button.addEventListener("click", async () => {
-        const card = button.closest(".planet-card");
-        const favData = {
-          id: card.dataset.id,
-          title: card.dataset.title,
-          type: card.dataset.type
-        };
+    const card = button.closest("[data-type]");
+    if (!card) {
+      console.error("Card not found for this button.");
+      return;
+    }
   
-        const user = auth.currentUser;
-        if (!user) {
-          alert("Please log in to save favorites!");
-          return;
-        }
+    const type = card.dataset.type;
+    let favData = {};
   
-        try {
-          const favRef = firestore.doc(db, "users", user.uid, "favourites", favData.id);
-          await firestore.setDoc(favRef, favData);
-          alert(`✅ Saved ${favData.title} to favorites!`);
-        } catch (err) {
-          console.error("Error saving favorite:", err);
-          alert("Error saving favorite.");
-        }
-      });
-    });
+    if (type === "apod") {
+        const apodImage = document.getElementById("apod-img").src;
+        const apodTitle = document.getElementById("apod-title").textContent;
+        const apodDesc = document.getElementById("apod-desc").textContent;
+        const apodDate = document.getElementById("apod-date").textContent.replace('Date: ', '');  // remove the "Date: " part
+        
+        // Use the date as the ID for the APOD entry, ensuring it's unique for each day
+        favData = {
+          title: apodTitle,
+          image: apodImage,
+          description: apodDesc,
+          date: apodDate,  // saving just the date part
+          type: "apod",
+          id: apodDate  // use date as the unique document ID for APOD
+};
+} else if (type === "planets") {
+    favData = {
+      id: card.dataset.id,  // ID based on the planet's name
+      title: card.querySelector("h3").textContent,  // The name of the planet
+      type: "planet",  // The type of favorite (i.e., planet)
+      image: card.querySelector("img").src,  // The planet's image URL
+      mass: card.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim(),  // Mass
+      gravity: card.querySelector("p:nth-of-type(2)").textContent.split(":")[1].trim(),  // Gravity
+      radius: card.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim(),  // Mean Radius
+      orbit: card.querySelector("p:nth-of-type(4)").textContent.split(":")[1].trim()  // Orbital Period
+    };
+  } else if (type === "asteroids") {
+      favData = {
+        id: card.dataset.id,
+        title: card.querySelector("h3").textContent,
+        type: "asteroid",
+        hazardous: card.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim(),
+        diameter: card.querySelector("p:nth-of-type(2)").textContent.split(":")[1].trim(),
+        velocity: card.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim(),
+        distance: card.querySelector("p:nth-of-type(4)").textContent.split(":")[1].trim(),
+        orbiting: card.querySelector("p:nth-of-type(5)").textContent.split(":")[1].trim(),
+        absMag: card.querySelector("p:nth-of-type(6)").textContent.split(":")[1].trim(),
+        appMag: card.querySelector("p:nth-of-type(7)").textContent.split(":")[1].trim()
+      };
+    }
+  
+    try {
+      const favRef = doc(db, "users", currentUser.uid, "favourites", favData.id);
+      await setDoc(favRef, favData);
+      alert(`✅ Saved ${favData.title} to favorites!`);
+    } catch (err) {
+      console.error("Error saving favorite:", err);
+      alert("Error saving favorite.");
+    }
   });
 
+  async function initFavouritesDisplay() {
+    const favouritesContainer = document.querySelector("#favourites-container");
   
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
-
-async function saveFavourite(userId, favData) {
-  const favRef = doc(db, "users", userId, "favourites", favData.id);
-  await setDoc(favRef, favData);
+    if (!favouritesContainer) {
+      console.error("No favourites container found in HTML.");
+      return;
+    }
+  
+    try {
+      const favourites = await getFavourites(currentUser.uid);
+  
+      if (favourites.length === 0) {
+        favouritesContainer.innerHTML = "<p>No favourites saved yet.</p>";
+        return;
+      }
+  
+      favourites.forEach(fav => {
+        const card = document.createElement("div");
+        card.classList.add("fav-card");
+  
+        // Build the HTML for the card
+        card.innerHTML = `
+          <h3>${fav.title}</h3>
+          ${fav.image ? `<img src="${fav.image}" alt="${fav.title}" />` : ""}
+          <p>Type: ${fav.type}</p>
+          ${fav.description ? `<p>${fav.description}</p>` : ""}
+          ${fav.date ? `<p>Date: ${fav.date}</p>` : ""}
+                  <button class="remove-fav" data-id="${fav.id}">⭐</button>
+        `;
+  
+  
+        favouritesContainer.appendChild(card);
+        
+        const removeButton = card.querySelector(".remove-fav");
+        removeButton.addEventListener("click", async () => {
+          try {
+            // Remove the favorite from Firestore
+            const favRef = doc(db, "users", currentUser.uid, "favourites", fav.id);
+            await deleteDoc(favRef);  // Use deleteDoc to remove the favorite
+  
+            // Remove the card from the UI
+            card.remove();
+            alert(`❌ Removed ${fav.title} from favorites.`);
+          } catch (error) {
+            console.error("Error removing favorite:", error);
+            alert("Error removing favorite.");
+          }
+        });
+      });
+  
+    } catch (error) {
+      console.error("Error loading favourites:", error);
+      favouritesContainer.innerHTML = "<p>Failed to load favourites.</p>";
+    }
 }

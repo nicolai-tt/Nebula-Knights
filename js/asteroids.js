@@ -33,8 +33,11 @@ async function fetchAsteroidData (dateInput) {
 function createAsteroidCard(asteroid) {
 
   const card = document.createElement("div");
-
   card.classList.add("card");
+  card.setAttribute("data-type", "asteroids");
+  card.setAttribute("data-id", asteroid.id);
+
+
 
   let hazardous = "No";
 
